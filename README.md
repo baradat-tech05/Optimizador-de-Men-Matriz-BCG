@@ -54,7 +54,12 @@ JSON
     "categoria_actual": "Principal",
     "status_qa": "Data Verified"
 }
-Hito Técnico: Se resolvió exitosamente la gestión de sockets en entornos híbridos y la sincronización de contratos entre URL y Vistas, garantizando un flujo de datos sin interrupciones.
+
+![Matriz bcg postman 200 ok](https://github.com/user-attachments/assets/9b4826de-acba-4f25-bcbf-a2d347d61fd3)
+
+Logro Técnico: Se resolvió exitosamente la persistencia y comunicación de datos en entornos híbridos y la sincronización entre endpoints, garantizando un flujo de datos sin interrupciones.
+
+
 
 📈 Funcionalidades Clave
 Dashboard BCG: Visualización gráfica de la posición competitiva de los productos.
