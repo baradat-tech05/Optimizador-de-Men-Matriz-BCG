@@ -1,8 +1,7 @@
-📊 Matriz BCG - Optimizador de Menu para Rentabilidad Gastronómica
+📊 Matriz BCG - Optimizador de Menú para Rentabilidad Gastronómica
 
 📝 Descripción del Proyecto
 Este sistema automatiza el análisis de la Matriz BCG (Boston Consulting Group) para la gestión estratégica de menús en el sector gastronómico. La aplicación calcula la rentabilidad y popularidad de cada plato, clasificándolos automáticamente en los cuadrantes: Estrella, Vaca, Interrogante y Perro.
-
 El proyecto ha sido desarrollado bajo un enfoque de QA-First, asegurando que la lógica de negocio sea verificable mediante una API REST antes de su visualización en el frontend.
 
 🛠️ Stack Tecnológico
@@ -18,7 +17,6 @@ Testing: Postman para validación de API
 Este proyecto está completamente contenedorizado para garantizar que funcione en cualquier entorno (Windows, Linux, Mac).
 
 Clonar el repositorio:
-
 Bash
 git clone https://github.com/baradat-tech05/Optimizador-de-Men-Matriz-BCG.git
 cd matriz-boston
@@ -26,17 +24,17 @@ cd matriz-boston
 🛠️ Configuración para Entorno Local (Windows)
 Si vas a ejecutar este proyecto localmente sin Docker, sigue estos pasos:
 
-1. Requisitos Previos
+1. Requisitos Previos:
 Python 3.10+ instalado.
 
 MySQL Server instalado y corriendo localmente.
 
 Base de datos creada manualmente:
 
-SQL
-
+SQL:
 CREATE DATABASE matriz_bcg;
-2. Entorno Virtual y Dependencias
+
+2. Entorno Virtual y Dependencias:
 Desde la raíz del proyecto, crea y activa el entorno virtual, luego instala las librerías necesarias:
 
 PowerShell
@@ -44,6 +42,7 @@ PowerShell
 python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
+
 3. Configuración de Base de Datos
 Debido a que la configuración original está diseñada para Docker, debes ajustar el archivo backend/core/settings.py (o el archivo .env si se utiliza):
 
@@ -65,11 +64,10 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
 4. Variables de Entorno y Migraciones
 Dado que el código fuente reside en la carpeta /backend, es necesario indicar a Python la ruta del proyecto antes de ejecutar comandos de Django:
-
 En PowerShell:
-
 PowerShell
 
 # Configurar la ruta del código
@@ -109,10 +107,11 @@ JSON
 
 ![Matriz bcg postman 200 ok](https://github.com/user-attachments/assets/9b4826de-acba-4f25-bcbf-a2d347d61fd3)
 
-Logro Técnico: Se resolvió exitosamente la persistencia y comunicación de datos en entornos híbridos y la sincronización entre endpoints, garantizando un flujo de datos sin interrupciones.
+Logro Técnico: 
+Se resolvió exitosamente la persistencia y comunicación de datos en entornos híbridos y la sincronización entre endpoints, garantizando un flujo de datos sin interrupciones.
 
 
-📈 Funcionalidades Clave
+📈 Funcionalidades Clave:
 Dashboard BCG: Visualización gráfica de la posición competitiva de los productos.
 
 API REST: Interfaz para integración con otros sistemas o herramientas de BI.
@@ -122,4 +121,4 @@ Seguridad: Implementación de variables de entorno para protección de datos sen
 👤 Autor
 Jesus Baradat - https://www.linkedin.com/in/jesus-baradat/
 
-Proyecto desarrollado como proyecto final del Bootcamp Desarollo de aplicaciones Fullstack Python Trainee.
+Aplicación desarrollada como proyecto final del Bootcamp Desarrollo de aplicaciones Fullstack Python Trainee.
