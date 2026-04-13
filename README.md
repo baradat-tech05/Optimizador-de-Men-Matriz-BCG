@@ -20,7 +20,7 @@ Este proyecto está completamente contenedorizado para garantizar que funcione e
 Clonar el repositorio:
 
 Bash
-git clone https://github.com/baradat-tech05/matriz-boston.git
+git clone https://github.com/baradat-tech05/Optimizador-de-Men-Matriz-BCG.git
 cd matriz-boston
 Configurar variables de entorno:
 Crea un archivo .env basado en la configuración del proyecto (ejemplo):
