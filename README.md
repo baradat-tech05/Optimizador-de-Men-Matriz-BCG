@@ -70,13 +70,13 @@ Dado que el código fuente reside en la carpeta /backend, es necesario indicar a
 En PowerShell:
 PowerShell
 
-# Configurar la ruta del código
+ Configurar la ruta del código:
 $env:PYTHONPATH=".\backend"
 
-# Ejecutar migraciones
+ Ejecutar migraciones:
 python manage.py migrate
 
-# Crear usuario administrador
+ Crear usuario administrador:
 python manage.py createsuperuser
 5. Ejecución del Servidor
 Para levantar el proyecto, usa siempre el prefijo del PYTHONPATH:
