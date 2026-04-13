@@ -22,19 +22,71 @@ Clonar el repositorio:
 Bash
 git clone https://github.com/baradat-tech05/Optimizador-de-Men-Matriz-BCG.git
 cd matriz-boston
-Configurar variables de entorno:
-Crea un archivo .env basado en la configuración del proyecto (ejemplo):
 
-Ini, TOML
-DB_NAME=matriz_db
-DB_USER=root
-DB_PASSWORD=root
-DB_HOST=db
-Levantar el entorno con Docker:
+🛠️ Configuración para Entorno Local (Windows)
+Si vas a ejecutar este proyecto localmente sin Docker, sigue estos pasos:
 
-Bash
-docker-compose up --build
-El servidor estará disponible en: http://localhost:8000
+1. Requisitos Previos
+Python 3.10+ instalado.
+
+MySQL Server instalado y corriendo localmente.
+
+Base de datos creada manualmente:
+
+SQL
+
+CREATE DATABASE matriz_bcg;
+2. Entorno Virtual y Dependencias
+Desde la raíz del proyecto, crea y activa el entorno virtual, luego instala las librerías necesarias:
+
+PowerShell
+
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+3. Configuración de Base de Datos
+Debido a que la configuración original está diseñada para Docker, debes ajustar el archivo backend/core/settings.py (o el archivo .env si se utiliza):
+
+Host: Cambiar 'db' por '127.0.0.1'.
+
+User/Password: Asegurarse de que coincidan con tus credenciales de MySQL local.
+
+Ejemplo en settings.py:
+
+Python
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'matriz_bcg',
+        'USER': 'root', 
+        'PASSWORD': 'tu_password',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+4. Variables de Entorno y Migraciones
+Dado que el código fuente reside en la carpeta /backend, es necesario indicar a Python la ruta del proyecto antes de ejecutar comandos de Django:
+
+En PowerShell:
+
+PowerShell
+
+# Configurar la ruta del código
+$env:PYTHONPATH=".\backend"
+
+# Ejecutar migraciones
+python manage.py migrate
+
+# Crear usuario administrador
+python manage.py createsuperuser
+5. Ejecución del Servidor
+Para levantar el proyecto, usa siempre el prefijo del PYTHONPATH:
+
+PowerShell
+
+$env:PYTHONPATH=".\backend"; python manage.py runserver
+Luego accede a: http://127.0.0.1:8000/
 
 🧪 Validación de Calidad (QA)
 Como parte del proceso de aseguramiento de calidad, se implementó un endpoint de API para validar la integridad de los datos de cada plato.
@@ -58,7 +110,6 @@ JSON
 ![Matriz bcg postman 200 ok](https://github.com/user-attachments/assets/9b4826de-acba-4f25-bcbf-a2d347d61fd3)
 
 Logro Técnico: Se resolvió exitosamente la persistencia y comunicación de datos en entornos híbridos y la sincronización entre endpoints, garantizando un flujo de datos sin interrupciones.
-
 
 
 📈 Funcionalidades Clave
