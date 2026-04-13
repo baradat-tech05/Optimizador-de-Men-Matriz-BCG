@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard | Matriz Boston{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold text-dark">Análisis de Menú (BCG)</h2>
+        <p class="text-muted">Optimización de rentabilidad y popularidad</p>
+    </div>
+    <div class="btn-group">
+        <a href="/admin/matriz/plato/add/" class="btn btn-primary shadow-sm">+ Nuevo Plato</a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm border-0 border-start border-primary border-4 h-100">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase small fw-bold">Margen Promedio (Eje Y)</h6>
+                <h2 class="display-6 fw-bold">${{ p_margen|stringformat:".2f" }}</h2>
+                <small class="text-muted">Umbral de rentabilidad alta</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm border-0 border-start border-info border-4 h-100">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase small fw-bold">Ventas Promedio (Eje X)</h6>
+                <h2 class="display-6 fw-bold">{{ p_ventas|stringformat:".2f" }} <small class="h5 text-muted">unid.</small></h2>
+                <small class="text-muted">Umbral de popularidad alta</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white py-3">
+        <h5 class="m-0 fw-bold text-primary">Mapa Estratégico de Productos</h5>
+    </div>
+    <div class="card-body">
+        <div style="height: 400px; position: relative;">
+            <canvas id="graficoBCG"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-muted small text-uppercase">
+                <tr>
+                    <th class="ps-4">Producto</th>
+                    <th class="text-center">Ventas</th>
+                    <th class="text-center">Margen</th>
+                    <th class="text-center pe-4">Clasificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in platos %}
+                <tr>
+                    <td class="ps-4">
+                        <div class="fw-bold">{{ item.objeto.nombre }}</div>
+                        <small class="text-muted">{{ item.objeto.categoria }}</small>
+                    </td>
+                    <td class="text-center">{{ item.ventas }}</td>
+                    <td class="text-center text-success fw-bold">{{ item.margen|stringformat:".2f" }}</td>
+                    <td class="text-center pe-4">
+                        <span class="badge {{ item.clase_bootstrap }} text-uppercase shadow-sm py-2 px-3" style="min-width: 100px;">
+                            {{ item.categoria_bcg }}
+                        </span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-5">
+                        <p class="text-muted mb-0">No hay datos disponibles. Comienza agregando platos y ventas en el Admin.</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // 1. Obtener el contexto del canvas
+    const canvas = document.getElementById('graficoBCG');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        
+        // 2. Crear el gráfico
+        new Chart(ctx, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: 'Análisis de Platos',
+                    data: [
+                    {% for item in platos %}
+                    {
+                        x: {{ item.ventas|stringformat:"f" }},
+                        y: {{ item.margen|stringformat:"f" }},
+                        r: 10
+                    }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ],
+                    backgroundColor: [
+                    {% for item in platos %}
+                    "{{ item.color_grafico|safe }}"{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Ventas' },
+                        suggestedMin: 0
+                    },
+                    y: {
+                        title: { display: true, text: 'Margen' },
+                        suggestedMin: 0
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                // Esto mostrará el nombre del plato al pasar el mouse
+                                const nombres = [{% for item in platos %}'{{ item.nombre|escapejs }}'{% if not forloop.last %},{% endif %}{% endfor %}];
+                                return nombres[context.dataIndex];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

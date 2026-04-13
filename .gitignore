@@ -1,0 +1,38 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+build/
+dist/
+
+# --- Django ---
+db.sqlite3
+db.sqlite4
+local_settings.py
+staticfiles/
+media/
+
+# --- Docker ---
+.docker/
+# Si guardas datos de la DB en una carpeta local para persistencia:
+mysql_data/
+
+# --- Entorno / Secretos (CRÍTICO) ---
+.env
+.env.dev
+.env.prod
+auth.json
+
+# --- IDEs y Editores ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Postman ---
+# Si exportas colecciones, no subirlas si tienen tokens reales
+*.postman_collection.json
+*.postman_environment.json
